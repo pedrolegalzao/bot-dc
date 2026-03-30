@@ -233,3 +233,31 @@ if not TOKEN:
     raise ValueError("Variável de ambiente DISCORD_BOT_TOKEN não encontrada.")
 
 bot.run(TOKEN)
+
+@bot.event
+async def on_member_join(member):
+    guild = member.guild
+
+    cargo = discord.utils.get(guild.roles, name="youkai")
+
+    if cargo:
+        await member.add_roles(cargo)
+        print(f"Cargo '{cargo.name}' adicionado a {member.name}")
+    else:
+        print("Cargo 'youkai' não encontrado")
+
+    channel = get_canal(guild, CANAL_ENTRADA)
+
+    if channel is not None:
+        embed = discord.Embed(
+            title=TITULO_ENTRADA.format(servidor=guild.name),
+            description=MENSAGEM_ENTRADA.format(
+                membro=member.mention,
+                servidor=guild.name,
+                contagem=guild.member_count
+            ),
+            color=COR_ENTRADA
+        )
+        embed.set_thumbnail(url=member.display_avatar.url)
+        embed.set_image(url=IMAGEM_ENTRADA)
+        await channel.send(embed=embed)
