@@ -10,7 +10,7 @@ from datetime import timedelta
 CANAL_ENTRADA = "join"
 CANAL_SAIDA = "exit"
 PREFIXO = "!"
-CARGO_MODERACAO = "Administrador"
+CARGO_MODERACAO = "kami"
 
 # Entrada
 TITULO_ENTRADA = "Bem-vindo(a)!"
